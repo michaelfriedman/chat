@@ -16,12 +16,7 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 
 function App() {
-  const [channels, setChannels] = useState([
-    {
-      topic: 'Some static data',
-      id: 'randomId43'
-    }
-  ])
+  const [channels, setChannels] = useState([])
 
   useEffect(() => {
     db.collection('channels').onSnapshot(snapshot => {
@@ -32,15 +27,17 @@ function App() {
           id: doc.id
         })
       })
-      console.log(docs)
     })
   }, [])
   return (
     <div className="App">
       <div className="Nav">
         <div className="User">
-          className="UserImage" alt="whatever"
-          src="https://placekitten.com/64/64" />
+          <img
+            className="UserImage"
+            alt="whatever"
+            src="https://placekitten.com/64/64"
+          />
           <div>
             <div>Michael David Friedman</div>
             <div>
