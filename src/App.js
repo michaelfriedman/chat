@@ -1,29 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Nav from './Nav'
 import Channel from './Channel'
 import { firebase } from './firebase'
+import { useAuth } from './useAuth'
 
 export default function App() {
-  const [user, setUser] = useState(null)
-  // leaving verbose for readability
-  useEffect(
-    () =>
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          setUser({
-            displayName: user.displayName,
-            photoUrl: user.photoURL,
-            uid: user.uid
-          })
-          console.log(user)
-        } else {
-          setUser(null)
-          console.log('no user')
-        }
-      }),
-    []
-  )
-
+  const user = useAuth()
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider()
     await firebase.auth().signInWithPopup(provider)
