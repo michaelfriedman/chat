@@ -1,4 +1,17 @@
-import React from 'react';
+import React from 'react'
+import firebase from 'firebase'
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyDqTLVRakBEFrLgqL07TCJCtHrfNdbufME',
+  authDomain: 'chat-d174b.firebaseapp.com',
+  databaseURL: 'https://chat-d174b.firebaseio.com',
+  projectId: 'chat-d174b',
+  storageBucket: 'chat-d174b.appspot.com',
+  messagingSenderId: '283696581017',
+  appId: '1:283696581017:web:76e233b739c67cce'
+}
+
+firebase.initializeApp(firebaseConfig)
 
 function App() {
   return (
@@ -11,7 +24,7 @@ function App() {
             src="https://placekitten.com/64/64"
           />
           <div>
-            <div>Ryan Peterson Florence</div>
+            <div>Michael David Friedman</div>
             <div>
               <button className="text-button">log out</button>
             </div>
@@ -44,7 +57,7 @@ function App() {
                 <div className="Avatar" />
                 <div className="Author">
                   <div>
-                    <span className="UserName">Ryan Florence </span>
+                    <span className="UserName">Michael Friedman </span>
                     <span className="TimeStamp">3:37 PM</span>
                   </div>
                   <div className="MessageContent">Alright, lets do this.</div>
@@ -65,7 +78,7 @@ function App() {
           <div>
             <div className="Member">
               <div className="MemberStatus offline" />
-              Ryan Florence
+              Michael Friedman
             </div>
             <div className="Member">
               <div className="MemberStatus online" />
@@ -75,7 +88,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
