@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { db } from './firebase'
+import React from 'react'
+import { useCollection } from './useCollection'
 
 export default function Nav() {
-  const [channels, setChannels] = useState([])
+  const channels = useCollection('channels')
 
-  useEffect(() => {
-    return db.collection('channels').onSnapshot(snapshot => {
-      const docs = []
-      snapshot.forEach(doc => {
-        docs.push({
-          ...doc.data(),
-          id: doc.id
-        })
-      })
-      setChannels(docs)
-    })
-  }, [])
   return (
     <div className="Nav">
       <div className="User">
