@@ -5,11 +5,23 @@ import { firebase } from './firebase'
 
 export default function App() {
   const [user, setUser] = useState(null)
-
-  useEffect(() =>
-    firebase
-      .auth()
-      .onAuthStateChanged(user => (user ? setUser(user) : setUser(null)))
+  // leaving verbose for readability
+  useEffect(
+    () =>
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          setUser({
+            displayName: user.displayName,
+            photoUrl: user.photoURL,
+            uid: user.uid
+          })
+          console.log(user)
+        } else {
+          setUser(null)
+          console.log('no user')
+        }
+      }),
+    []
   )
 
   const handleSignIn = async () => {
@@ -18,7 +30,7 @@ export default function App() {
   }
   return user ? (
     <div className="App">
-      <Nav />
+      <Nav user={user} />
       <Channel />
     </div>
   ) : (
