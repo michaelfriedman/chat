@@ -1,13 +1,14 @@
 import React from 'react'
 
-export default function ChannelInfo() {
+function ChannelInfo() {
   return (
     <div className="ChannelInfo">
       <div className="Topic">
-        Topic:{' '}
-        <input type="text" className="TopicInput" value="awesome stuff" />
+        Topic: <input className="TopicInput" />
       </div>
-      <div className="ChannelName"># general</div>
+      <div className="ChannelName">#general</div>
     </div>
   )
 }
+
+export default ChannelInfo
