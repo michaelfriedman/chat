@@ -16,9 +16,7 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 
 function App() {
-  const [channels, setChannels] = useState([
-    { topic: 'something hardcoded', id: 'general' }
-  ])
+  const [channels, setChannels] = useState([])
 
   useEffect(() => {
     return db.collection('channels').onSnapshot(snapshot => {
