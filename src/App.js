@@ -16,7 +16,9 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 
 function App() {
-  const [channels, setChannels] = useState([])
+  const [channels, setChannels] = useState([
+    { topic: 'something hardcoded', id: 'general' }
+  ])
 
   useEffect(() => {
     return db.collection('channels').onSnapshot(snapshot => {
@@ -47,10 +49,9 @@ function App() {
           </div>
         </div>
         <nav className="ChannelNav">
-          <a href="/channel/awesome"># awesome</a>
-          <a className="active" href="/channel/general">
-            # general
-          </a>
+          {channels.map(channel => (
+            <a href={`/channel/${channel.id}`}># {channel.id}</a>
+          ))}
         </nav>
       </div>
       <div className="Channel">
