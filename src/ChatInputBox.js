@@ -1,7 +1,7 @@
 import React from 'react'
 import { db } from './firebase'
 
-export default function ChatInputBox() {
+export default function ChatInputBox({ user }) {
   return (
     <form
       onSubmit={e => {
@@ -11,6 +11,7 @@ export default function ChatInputBox() {
           .doc('random')
           .collection('messages')
           .add({
+            user: db.collection('users').doc(user.uid),
             text: value,
             createdAt: new Date()
           })
