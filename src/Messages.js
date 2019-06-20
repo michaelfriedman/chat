@@ -5,8 +5,9 @@ function Messages() {
   const [messages, setMessages] = useState([])
   useEffect(() => {
     db.collection('channels')
-      .doc('general')
+      .doc('random')
       .collection('messages')
+      .orderBy('createdAt')
       .onSnapshot(snapshot => {
         const docs = []
         snapshot.forEach(doc => {

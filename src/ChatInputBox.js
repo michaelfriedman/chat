@@ -8,7 +8,7 @@ export default function ChatInputBox() {
         e.preventDefault()
         const value = e.target.elements[0].value
         db.collection('channels')
-          .doc('Q&A')
+          .doc('random')
           .collection('messages')
           .add({
             text: value,
