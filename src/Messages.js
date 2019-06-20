@@ -2,8 +2,8 @@ import React from 'react'
 import { useCollection } from './useCollection'
 import { useDoc } from './useDoc'
 
-function Messages() {
-  const messages = useCollection('channels/random/messages', 'createdAt')
+function Messages({ channelId }) {
+  const messages = useCollection(`channels/${channelId}/messages`, 'createdAt')
   return (
     <div className="Messages">
       <div className="EndOfMessages">That's every message!</div>

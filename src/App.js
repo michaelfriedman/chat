@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Nav from './Nav'
 import Channel from './Channel'
 import { firebase, db } from './firebase'
+import { Router, Redirect } from '@reach/router'
 
 export default function App() {
   const user = useAuth()
@@ -9,7 +10,10 @@ export default function App() {
   return user ? (
     <div className="App">
       <Nav user={user} />
-      <Channel user={user} />
+      <Router>
+        <Channel path="channel/:channelId" user={user} />
+        <Redirect from="/" to="channel/general" />
+      </Router>
     </div>
   ) : (
     <Login />
@@ -23,7 +27,6 @@ function Login() {
     try {
       await firebase.auth().signInWithPopup(provider)
     } catch (error) {
-      console.error(error)
       setAuthError(error)
     }
   }
@@ -59,7 +62,6 @@ function useAuth() {
           db.collection('users')
             .doc(user.uid)
             .set(user, { merge: true })
-          console.log(user)
         } else {
           setUser(null)
           console.log('no user')
