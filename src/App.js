@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import firebase from 'firebase'
 
 const firebaseConfig = {
@@ -13,16 +13,34 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
+const db = firebase.firestore()
+
 function App() {
+  const [channels, setChannels] = useState([
+    {
+      topic: 'Some static data',
+      id: 'randomId43'
+    }
+  ])
+
+  useEffect(() => {
+    db.collection('channels').onSnapshot(snapshot => {
+      const docs = []
+      snapshot.forEach(doc => {
+        docs.push({
+          ...doc.data(),
+          id: doc.id
+        })
+      })
+      console.log(docs)
+    })
+  }, [])
   return (
     <div className="App">
       <div className="Nav">
         <div className="User">
-          <img
-            className="UserImage"
-            alt="whatever"
-            src="https://placekitten.com/64/64"
-          />
+          className="UserImage" alt="whatever"
+          src="https://placekitten.com/64/64" />
           <div>
             <div>Michael David Friedman</div>
             <div>
