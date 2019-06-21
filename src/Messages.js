@@ -1,7 +1,8 @@
 import React from 'react'
+import formatDate from 'date-fns/format'
+import isSameDay from 'date-fns/is_same_day'
 import useCollection from './useCollection'
 import useDocWithCache from './useDocWithCache'
-import formatDate from 'date-fns/format'
 
 function Messages({ channelId }) {
   const messages = useCollection(`channels/${channelId}/messages`, 'createdAt')
@@ -11,7 +12,7 @@ function Messages({ channelId }) {
       {messages.map((message, index) => {
         const previous = messages[index - 1]
         const showAvatar = shouldShowAvatar(previous, message)
-        const showDay = false
+        const showDay = shouldShowDay(previous, message)
 
         return showAvatar ? (
           <FirstMessageFromUser
@@ -78,6 +79,20 @@ function shouldShowAvatar(previous, message) {
     message.createdAt.seconds - previous.createdAt.seconds > 300
 
   return hasBeenAWhile
+}
+
+function shouldShowDay(previous, message) {
+  const isFirst = !previous
+  if (isFirst) {
+    return true
+  }
+
+  const isNewDay = !isSameDay(
+    previous.createdAt.seconds * 1000,
+    message.createdAt.seconds * 1000
+  )
+
+  return isNewDay
 }
 
 export default Messages
