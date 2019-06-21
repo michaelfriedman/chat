@@ -1,6 +1,7 @@
 import React from 'react'
 import useCollection from './useCollection'
 import useDocWithCache from './useDocWithCache'
+import formatDate from 'date-fns/format'
 
 function Messages({ channelId }) {
   const messages = useCollection(`channels/${channelId}/messages`, 'createdAt')
@@ -53,7 +54,7 @@ function FirstMessageFromUser({ message, showDay }) {
           <div>
             <span className="UserName">{author && author.displayName} </span>
             <span className="TimeStamp">
-              {new Date(message.createdAt.seconds * 1000).toLocaleTimeString()}
+              {formatDate(message.createdAt.seconds * 1000, 'h:mm A')}
             </span>
           </div>
           <div className="MessageContent">{message.text}</div>
