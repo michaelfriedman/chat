@@ -2,8 +2,8 @@ import React from 'react'
 import { useCollection } from './useCollection'
 import { useDoc } from './useDoc'
 
-function Messages() {
-  const messages = useCollection('channels/random/messages', 'createdAt')
+function Messages({ channelId }) {
+  const messages = useCollection(`channels/${channelId}/messages`, 'createdAt')
   return (
     <div className="Messages">
       <div className="EndOfMessages">That's every message!</div>
@@ -19,7 +19,7 @@ function Messages() {
             showDay={showDay}
           />
         ) : (
-          <div key={index}>
+          <div key={message.id}>
             <div className="Message no-avatar">
               <div className="MessageContent">{message.text}</div>
             </div>
