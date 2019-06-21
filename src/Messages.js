@@ -19,7 +19,7 @@ function Messages({ channelId }) {
             showDay={showDay}
           />
         ) : (
-          <div key={index}>
+          <div key={message.id}>
             <div className="Message no-avatar">
               <div className="MessageContent">{message.text}</div>
             </div>
