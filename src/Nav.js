@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCollection } from './useCollection'
+import useCollection from './useCollection'
 import { firebase } from './firebase'
 import { Link } from '@reach/router'
 

@@ -4,7 +4,7 @@ import { db } from './firebase'
 const cache = {}
 const pendingCache = {}
 
-export function useDoc(path) {
+export default function useDoc(path) {
   const [doc, setDoc] = useState(cache[path])
   useEffect(() => {
     if (doc) {
