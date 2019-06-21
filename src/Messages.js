@@ -1,7 +1,8 @@
 import React from 'react'
+import formatDate from 'date-fns/format'
+import isSameDay from 'date-fns/is_same_day'
 import useCollection from './useCollection'
 import useDocWithCache from './useDocWithCache'
-import formatDate from 'date-fns/format'
 
 function Messages({ channelId }) {
   const messages = useCollection(`channels/${channelId}/messages`, 'createdAt')
@@ -10,8 +11,8 @@ function Messages({ channelId }) {
       <div className="EndOfMessages">That's every message!</div>
       {messages.map((message, index) => {
         const previous = messages[index - 1]
-        const showAvatar = !previous || message.user.id !== previous.user.id
-        const showDay = false
+        const showAvatar = shouldShowAvatar(previous, message)
+        const showDay = shouldShowDay(previous, message)
 
         return showAvatar ? (
           <FirstMessageFromUser
@@ -38,7 +39,9 @@ function FirstMessageFromUser({ message, showDay }) {
       {showDay && (
         <div className="Day">
           <div className="DayLine" />
-          <div className="DayText">12/6/2018</div>
+          <div className="DayText">
+            {new Date(message.createdAt.seconds * 1000).toLocaleDateString()}
+          </div>
           <div className="DayLine" />
         </div>
       )}
@@ -62,6 +65,36 @@ function FirstMessageFromUser({ message, showDay }) {
       </div>
     </div>
   )
+}
+
+function shouldShowAvatar(previous, message) {
+  const isFirst = !previous
+  if (isFirst) {
+    return true
+  }
+
+  const differentUser = message.user.id !== previous.user.id
+  if (differentUser) {
+    return true
+  }
+  const hasBeenAWhile =
+    message.createdAt.seconds - previous.createdAt.seconds > 300
+
+  return hasBeenAWhile
+}
+
+function shouldShowDay(previous, message) {
+  const isFirst = !previous
+  if (isFirst) {
+    return true
+  }
+
+  const isNewDay = !isSameDay(
+    previous.createdAt.seconds * 1000,
+    message.createdAt.seconds * 1000
+  )
+
+  return isNewDay
 }
 
 export default Messages

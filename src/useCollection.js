@@ -6,9 +6,11 @@ export default function useCollection(path, orderBy) {
 
   useEffect(() => {
     let collection = db.collection(path)
+
     if (orderBy) {
       collection = collection.orderBy(orderBy)
     }
+
     return collection.onSnapshot(snapshot => {
       const docs = []
       snapshot.forEach(doc => {
@@ -20,5 +22,6 @@ export default function useCollection(path, orderBy) {
       setDocs(docs)
     })
   }, [orderBy, path])
+
   return docs
 }
