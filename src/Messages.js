@@ -3,11 +3,13 @@ import formatDate from 'date-fns/format'
 import isSameDay from 'date-fns/is_same_day'
 import useCollection from './useCollection'
 import useDocWithCache from './useDocWithCache'
+import ChatScroller from './ChatScroller'
 
-function Messages({ channelId }) {
+export default function Messages({ channelId }) {
   const messages = useCollection(`channels/${channelId}/messages`, 'createdAt')
+
   return (
-    <div className="Messages">
+    <ChatScroller className="Messages">
       <div className="EndOfMessages">That's every message!</div>
       {messages.map((message, index) => {
         const previous = messages[index - 1]
@@ -28,7 +30,7 @@ function Messages({ channelId }) {
           </div>
         )
       })}
-    </div>
+    </ChatScroller>
   )
 }
 
@@ -96,5 +98,3 @@ function shouldShowDay(previous, message) {
 
   return isNewDay
 }
-
-export default Messages
