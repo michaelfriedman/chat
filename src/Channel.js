@@ -19,7 +19,7 @@ export default function Channel({ user, channelId }) {
         <Messages channelId={channelId} />
         <ChatInputBox channelId={channelId} user={user} />
       </div>
-      <Members />
+      <Members channelId={channelId} />
     </div>
   )
 }
