@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/database'
 import 'firebase/auth'
 
 const firebaseConfig = {
@@ -15,5 +16,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 const db = firebase.firestore()
+const rtdb = firebase.database()
+
+export function setupPresence(user) {
+  rtdb.ref('.info/connected').on('value', snapshot => {
+    console.log(snapshot.val())
+  })
+}
 
 export { db, firebase }
