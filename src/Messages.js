@@ -1,18 +1,15 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import formatDate from 'date-fns/format'
 import isSameDay from 'date-fns/is_same_day'
 import useCollection from './useCollection'
 import useDocWithCache from './useDocWithCache'
-import useChatScrollManager from './useChatScrollManager'
+import ChatScroller from './ChatScroller'
 
 export default function Messages({ channelId }) {
   const messages = useCollection(`channels/${channelId}/messages`, 'createdAt')
-  const scrollerRef = useRef()
-
-  useChatScrollManager(scrollerRef)
 
   return (
-    <div ref={scrollerRef} className="Messages">
+    <ChatScroller className="Messages">
       <div className="EndOfMessages">That's every message!</div>
       {messages.map((message, index) => {
         const previous = messages[index - 1]
@@ -33,7 +30,7 @@ export default function Messages({ channelId }) {
           </div>
         )
       })}
-    </div>
+    </ChatScroller>
   )
 }
 
