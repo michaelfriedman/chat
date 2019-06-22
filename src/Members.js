@@ -1,13 +1,23 @@
 import React from 'react'
+import useCollection from './useCollection'
 
-function Members() {
+function Members({ channelId }) {
+  const members = useCollection('users', /*'displayName'*/ undefined, [
+    `channels.${channelId}`,
+    '==',
+    true
+  ])
+  console.log(members)
   return (
     <div className="Members">
       <div>
-        <div className="Member">
-          <div className="MemberStatus offline" />
-          Michael Friedman
-        </div>
+        {members.map(member => (
+          <div key={member.id} className="Member">
+            <div className="MemberStatus online" />
+            {member.displayName}
+          </div>
+        ))}
+
         <div className="Member">
           <div className="MemberStatus online" />
           cleverbot
