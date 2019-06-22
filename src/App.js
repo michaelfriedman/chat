@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Nav from './Nav'
 import Channel from './Channel'
-import { firebase, db } from './firebase'
+import { firebase, db, setupPresence } from './firebase'
 import { Router, Redirect } from '@reach/router'
 
 export default function App() {
@@ -62,6 +62,8 @@ function useAuth() {
           db.collection('users')
             .doc(user.uid)
             .set(user, { merge: true })
+
+          setupPresence(user)
         } else {
           setUser(null)
           console.log('no user')
