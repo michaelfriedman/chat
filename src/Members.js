@@ -5,24 +5,21 @@ function Members({ channelId }) {
   const members = useCollection('users', undefined, [
     `channels.${channelId}`,
     '==',
-    true
+    true,
   ])
-  console.log(members)
 
   return (
     <div className="Members">
       <div>
-        {members.sort(sortByName).map(member => (
-          <div key={member.id} className="Member">
-            <div className="MemberStatus online" />
-            {member.displayName}
-          </div>
-        ))}
-
-        <div className="Member">
-          <div className="MemberStatus online" />
-          cleverbot
-        </div>
+        {members.sort(sortByName).map(member => {
+          console.log(member)
+          return (
+            <div key={member.id} className="Member">
+              <div className={`MemberStatus ${member.status.state}`} />
+              {member.displayName}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
