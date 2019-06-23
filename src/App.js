@@ -57,7 +57,7 @@ function useAuth() {
           const user = {
             displayName: firebaseUser.displayName,
             photoUrl: firebaseUser.photoURL,
-            uid: firebaseUser.uid
+            uid: firebaseUser.uid,
           }
           setUser(user)
           db.collection('users')
@@ -67,10 +67,9 @@ function useAuth() {
           setupPresence(user)
         } else {
           setUser(null)
-          console.log('no user')
         }
       }),
-    []
+    [],
   )
   return user
 }
