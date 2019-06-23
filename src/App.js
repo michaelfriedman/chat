@@ -11,8 +11,9 @@ export default function App() {
     <div className="App">
       <Nav user={user} />
       <Router>
-        <Channel path="/channel/:channelId" user={user} />
-        <Redirect from="/" to="/channel/general" />
+        <Channel path="channel/:channelId" user={user} />
+        {/* must add noThrow to redirect to prevent reach router causing error */}
+        <Redirect from="/" to="channel/general" noThrow />
       </Router>
     </div>
   ) : (
