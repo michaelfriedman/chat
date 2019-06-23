@@ -5,9 +5,8 @@ function Members({ channelId }) {
   const members = useCollection('users', undefined, [
     `channels.${channelId}`,
     '==',
-    true
+    true,
   ])
-  console.log(members)
 
   return (
     <div className="Members">
