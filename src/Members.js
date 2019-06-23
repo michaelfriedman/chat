@@ -13,12 +13,21 @@ function Members({ channelId }) {
       <div>
         {members.sort(sortByName).map(member => {
           console.log(member)
-          return (
+          if (member.state) {
+            return (
+              <div key={member.id} className="Member">
+                <div className={`MemberStatus ${member.status.state}`} />
+                {member.displayName}
+              </div>
+            ) 
+          } else {
+             return (
             <div key={member.id} className="Member">
-              <div className={`MemberStatus ${member.status.state}`} />
+              <div className={`MemberStatus`} />
               {member.displayName}
-            </div>
-          )
+            </div>)
+          }
+          
         })}
       </div>
     </div>
