@@ -2,7 +2,6 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const db = admin.firestore()
 require('isomorphic-fetch')
-require('dotenv').config()
 
 const bot = {
   displayName: 'cleverbot',
